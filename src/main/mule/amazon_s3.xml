@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:s3="http://www.mulesoft.org/schema/mule/s3"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	
+	<flow name="amazon_s3Flow1" doc:id="2a8b9a78-7490-4d7c-ab67-9d3e8af1f1d4" >
+		<http:listener doc:name="Listener" doc:id="a29bdccd-c8a5-49af-8902-fed14e9a7b1d" config-ref="HTTP_Listener_config" path="${http.path}"/>
+		<logger level="INFO" doc:name="LOG INFO Start Process" doc:id="d61f12af-29e3-4f39-9113-769af697d94e" message="Starting Api Layer With CorrelationId #[correlationId]"/>
+		<logger level="INFO" doc:name="LOG INFO Payload" doc:id="aad91816-ad70-449b-bf19-e3bbe323012e" message="#[payload]"/>
+		<s3:get-object doc:name="Get object" doc:id="b231fd71-2a3c-4528-a880-81061c06e8f2" bucketName="dinesh-kumar" key="sample.txt" config-ref="Amazon_S3_Configuration"/>
+		<logger level="INFO" doc:name="LOG INFO Payload" doc:id="f3b1ea5a-4a30-4f71-a50b-794f84cd0abe" message="#[output application/json --- payload]"/>
+		<logger level="INFO" doc:name="LOG INFO End Process" doc:id="8952bc4e-0d3a-4b4d-8653-3c4fe3fe2224" message="Starting Api Layer With CorrelationId #[correlationId]"/>
+	</flow>
+</mule>
